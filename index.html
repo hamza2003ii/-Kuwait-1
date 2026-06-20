@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خدمات سيارات متنقلة - كراج النهر الهادي</title>
+  <meta name="description" content="خدمة سيارات متنقلة في الكويت: تبديل بطاريات، بنشر متنقل، تبديل زيت، ميكانيك سيارات وكهرباء سيارات. ورشة صيانة متنقلة تصلك أينما كنت على مدار 24 ساعة بأفضل الأسعار." />
+  
+  <!-- Bootstrap RTL -->
+  <link id="bootstrap-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" />
+  
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts: Outfit for English & Tajawal for Arabic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* === Design System & Variables === */
+    :root {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-navbar: rgba(255, 255, 255, 0.80);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: rgba(226, 232, 240, 0.8);
+      --border-color-soft: rgba(226, 232, 240, 0.5);
+      
+      --primary: #2563eb;
+      --primary-rgb: 37, 99, 235;
+      --secondary: #1d4ed8;
+      --accent: #f59e0b;
+      --accent-rgb: 245, 158, 11;
+      --success: #16a34a;
+      --radius: 24px;
+      --radius-sm: 16px;
+      
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 20px 40px -12px rgba(37, 99, 235, 0.12), 0 4px 12px rgba(37, 99, 235, 0.04);
+      --card-border: 1px solid rgba(226, 232, 240, 0.8);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --chevron-filter: none;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #070b13;
+      --bg-card: #0f172a;
+      --bg-navbar: rgba(11, 15, 25, 0.80);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-color-soft: rgba(255, 255, 255, 0.04);
+      
+      --primary: #3b82f6;
+      --primary-rgb: 59, 130, 246;
+      --secondary: #60a5fa;
+      --accent: #fbbf24;
+      --accent-rgb: 251, 191, 36;
+      --success: #10b981;
+      
+      --shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.4);
+      --shadow-hover: 0 20px 45px -12px rgba(59, 130, 246, 0.25), 0 0 15px 2px rgba(59, 130, 246, 0.1);
+      --card-border: 1px solid rgba(255, 255, 255, 0.08);
+      --chevron-filter: invert(1) brightness(2);
+    }
+
+    body {
+      font-family: 'Outfit', 'Tajawal', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.7;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-body);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* === Navbar === */
+    .navbar {
+      background-color: var(--bg-navbar);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.2rem 0;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+    
+    .navbar.scrolled {
+      padding: 0.7rem 0;
+      box-shadow: var(--shadow);
+      background-color: var(--bg-navbar);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: var(--text-main) !important;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      color: var(--text-muted) !important;
+      font-weight: 600;
+      margin: 0 10px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--primary) !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: 0;
+      width: 0;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .btn-lang, .btn-theme-toggle {
+      background: rgba(var(--primary-rgb), 0.05);
+      border: 1.5px solid var(--border-color);
+      font-weight: 700;
+      color: var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-lang:hover, .btn-theme-toggle:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
+    }
+
+    /* === Hero Section === */
+    .hero {
+      background: linear-gradient(135deg, #090e17 0%, #1e3a8a 100%);
+      color: #fff;
+      padding: 11rem 0 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    [data-theme="light"] .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+
+    /* Hero Floating Glowing Spheres */
+    .hero-glowing-sphere-1 {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.25) 0%, rgba(var(--primary-rgb), 0) 70%);
+      top: -120px;
+      left: -120px;
+      animation: float-slow 15s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+    .hero-glowing-sphere-2 {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0) 70%);
+      bottom: -180px;
+      right: -120px;
+      animation: float-slow 20s infinite alternate-reverse ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes float-slow {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(70px, 50px) scale(1.1); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      animation: pulse-glow 2.5s infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.2); }
+      50% { opacity: 0.85; transform: scale(0.98); box-shadow: 0 0 12px 2px rgba(var(--accent-rgb), 0.25); }
+    }
+
+    .hero h1 {
+      font-size: 3.6rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      opacity: 0.85;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .btn-cta {
+      background-color: var(--accent) !important;
+      color: #0f172a !important;
+      padding: 1.1rem 3rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      border-radius: 50px;
+      border: none;
+      box-shadow: 0 10px 25px rgba(var(--accent-rgb), 0.4);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(var(--accent-rgb), 0.55);
+      background-color: #fbbf24 !important;
+    }
+
+    /* === Section Titles === */
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+
+    .section-title h2::after {
+      content: '';
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 4px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 1.2rem auto 0;
+    }
+
+    /* === Services Cards === */
+    .service-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+      border: var(--card-border);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .service-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-card:hover .service-img {
+      transform: scale(1.08);
+    }
+
+    .service-body {
+      padding: 2rem 1.8rem;
+      text-align: center;
+    }
+
+    .service-body h4 {
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+      color: var(--text-main);
+      font-size: 1.4rem;
+    }
+
+    .service-body p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-more-btn {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-more-btn {
+      color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    /* === Other Services Grid === */
+    .other-service-item {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      border: var(--card-border);
+      background: var(--bg-card);
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    .other-service-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .os-icon {
+      width: 85px;
+      height: 85px;
+      background: rgba(var(--primary-rgb), 0.06);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.8rem;
+      transition: var(--transition);
+    }
+
+    .svg-os-icon {
+      width: 32px;
+      height: 32px;
+      stroke: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .other-service-item:hover .os-icon {
+      background: var(--primary);
+      transform: rotateY(180deg);
+    }
+
+    .other-service-item:hover .svg-os-icon {
+      stroke: #fff;
+    }
+
+    .other-service-item h5 {
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+      color: var(--text-main);
+    }
+
+    .other-service-item p {
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* === Why Us === */
+    .feature-box {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: var(--card-border);
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    
+    .feature-box:hover .feature-icon {
+      transform: scale(1.2);
+    }
+
+    .feature-box h5 {
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--text-main);
+    }
+
+    /* === Cost Estimator === */
+    .estimator-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 3rem;
+      box-shadow: var(--shadow-hover);
+      border: var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .estimator-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--accent));
+    }
+    
+    .estimator-select {
+      background-color: var(--bg-body);
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.2rem;
+      font-weight: 600;
+      transition: var(--transition);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23475569' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 1rem center;
+    }
+    
+    html[dir="rtl"] .estimator-select {
+      background-position: left 1rem center;
+    }
+    html[dir="ltr"] .estimator-select {
+      background-position: right 1rem center;
+    }
+
+    .estimator-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
+      background-color: var(--bg-card);
+      outline: none;
+    }
+    
+    .estimator-breakdown-card {
+      background: rgba(var(--primary-rgb), 0.03);
+      border: 1.5px dashed var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 1.8rem;
+      margin-top: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .estimator-price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0.5rem 0;
+      display: block;
+    }
+
+    /* === Brands Slider === */
+    .brands-container {
+      overflow: hidden;
+      padding: 2rem 0;
+      position: relative;
+      width: 100%;
+    }
+    
+    .brands-container::before,
+    .brands-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    .brands-container::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-body), transparent);
+    }
+    .brands-container::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-body), transparent);
+    }
+
+    .brands-track {
+      display: flex;
+      width: calc(250px * 14);
+      animation: scroll-left 30s linear infinite;
+    }
+    
+    .brands-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-250px * 7)); }
+    }
+    
+    html[dir="rtl"] .brands-track {
+      animation: scroll-rtl 30s linear infinite;
+    }
+    
+    @keyframes scroll-rtl {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(250px * 7)); }
+    }
+
+    .brand-logo-card {
+      width: 220px;
+      height: 90px;
+      margin: 0 15px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      border: var(--card-border);
+      transition: var(--transition);
+    }
+    
+    .brand-logo-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .brand-logo-card span {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      color: var(--text-main);
+    }
+    
+    .brand-logo-card p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* === Coverage Areas (Interactive Map) === */
+    .map-container-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      align-items: center;
+      background: var(--bg-card);
+      border: var(--card-border);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    #kuwait-map {
+      flex: 1.3;
+      max-height: 400px;
+    }
+    
+    .map-region {
+      fill: rgba(var(--primary-rgb), 0.08);
+      stroke: var(--primary);
+      stroke-width: 2;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .map-region:hover {
+      fill: rgba(var(--primary-rgb), 0.25);
+      stroke: var(--accent);
+      stroke-width: 3.5;
+      filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.5));
+    }
+    
+    .map-region.active {
+      fill: rgba(var(--accent-rgb), 0.25);
+      stroke: var(--accent);
+      stroke-width: 3.5;
+    }
+    
+    .map-details-card {
+      flex: 1;
+      background: var(--bg-body);
+      border: var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 10;
+    }
+    
+    [data-theme="dark"] .map-details-card {
+      background: rgba(21, 31, 50, 0.5);
+      backdrop-filter: blur(10px);
+    }
+    
+    .bg-success-glow {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    
+    .border-color-soft {
+      border-color: var(--border-color) !important;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      margin-bottom: 2px;
+    }
+    
+    .stat-val {
+      font-size: 1.1rem;
+    }
+
+    .coverage-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: var(--card-border);
+      text-align: center;
+      transition: var(--transition);
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    .coverage-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .coverage-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .coverage-card h5 {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .coverage-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .coverage-badge {
+      display: inline-block;
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--success);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* === FAQ Accordion === */
+    .faq-accordion .accordion-item {
+      background-color: var(--bg-card);
+      border: var(--card-border);
+      border-radius: var(--radius-sm) !important;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .faq-accordion .accordion-item:hover {
+      border-color: var(--primary);
+    }
+
+    .faq-accordion .accordion-button {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1.5rem;
+      border: none;
+      box-shadow: none;
+      transition: var(--transition);
+    }
+    
+    .faq-accordion .accordion-button::after {
+      filter: var(--chevron-filter);
+      transition: transform 0.3s;
+    }
+
+    .faq-accordion .accordion-button:not(.collapsed) {
+      color: var(--primary);
+      background-color: rgba(var(--primary-rgb), 0.03);
+    }
+    
+    .faq-accordion .accordion-body {
+      background-color: var(--bg-card);
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* === Testimonials === */
+    .testimonial-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      border: var(--card-border);
+      position: relative;
+      height: 100%;
+      transition: var(--transition);
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .quote-icon {
+      font-size: 2.5rem;
+      color: rgba(var(--primary-rgb), 0.15);
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+    }
+    
+    html[dir="rtl"] .quote-icon {
+      left: auto;
+      right: 2rem;
+    }
+    
+    .testimonial-text {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .reviewer-avatar {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    
+    .reviewer-details h6 {
+      margin-bottom: 2px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    
+    .stars-rating {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* === Service Details Modal === */
+    .glass-modal {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+    
+    [data-theme="dark"] .glass-modal {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .modal-icon-container {
+      background: rgba(var(--primary-rgb), 0.06);
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    
+    .modal-description-text ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .modal-description-text li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color-soft);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      position: relative;
+    }
+    
+    html[dir="rtl"] .modal-description-text li {
+      padding-right: 20px;
+    }
+    html[dir="ltr"] .modal-description-text li {
+      padding-left: 20px;
+    }
+    
+    .modal-description-text li::before {
+      content: '✓';
+      position: absolute;
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    html[dir="rtl"] .modal-description-text li::before {
+      right: 0;
+    }
+    html[dir="ltr"] .modal-description-text li::before {
+      left: 0;
+    }
+    
+    .info-pill {
+      background: rgba(var(--primary-rgb), 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 15px;
+      text-align: center;
+      flex: 1;
+      margin: 0 5px;
+    }
+    
+    .info-pill-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    
+    .info-pill-value {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* === Footer === */
+    footer {
+      background-color: #05080e;
+      color: #fff;
+      padding: 4.5rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    [data-theme="light"] footer {
+      background-color: #0f172a;
+    }
+
+    /* === WhatsApp Button === */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 30px;
+      z-index: 999;
+      background-color: var(--success);
+      color: white;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+      text-decoration: none;
+      transition: var(--transition);
+      animation: bounce 2s infinite;
+    }
+
+    html[dir="rtl"] .whatsapp-btn { left: 30px; right: auto; }
+    html[dir="ltr"] .whatsapp-btn { right: 30px; left: auto; }
+
+    .whatsapp-btn:hover {
+      transform: scale(1.1);
+      color: white;
+      animation: none;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-15px);}
+      60% {transform: translateY(-7px);}
+    }
+
+    /* === Mobile Sticky Action Bar === */
+    .mobile-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1010;
+      background: var(--bg-navbar);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-top: 1px solid var(--border-color);
+      padding: 0.8rem 1.2rem;
+      display: none;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-action-btn {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .btn-mobile-call {
+      background: var(--primary);
+      color: #fff !important;
+    }
+    .btn-mobile-call:hover {
+      background: var(--secondary);
+    }
+    
+    .btn-mobile-wa {
+      background: var(--success);
+      color: #fff !important;
+    }
+    .btn-mobile-wa:hover {
+      background: #15803d;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 991px) {
+      .map-container-wrapper {
+        flex-direction: column;
+        padding: 20px;
+      }
+      #kuwait-map {
+        width: 100%;
+        max-height: 300px;
+      }
+      .map-details-card {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 9rem 0 5rem; }
+      .hero h1 { font-size: 2.4rem; }
+      .section-title h2 { font-size: 2rem; }
+      .btn-cta { width: 100%; display: flex; justify-content: center; }
+      
+      .mobile-action-bar {
+        display: flex;
+        gap: 12px;
+      }
+      body {
+        padding-bottom: 80px; /* space for bar */
+      }
+      .whatsapp-btn {
+        bottom: 95px; /* shift WhatsApp up */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <span style="color: var(--primary);">⚡</span> <span data-lang-key="nav_brand">كراج النهر الهادي</span>
+      </a>
+      
+      <div class="d-flex align-items-center order-lg-last">
+        <button class="btn-theme-toggle me-2" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="btn-lang me-2" onclick="toggleLanguage()" id="lang-btn">EN</button>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#services" data-lang-key="nav_services">خدمات البطاريات</a></li>
+          <li class="nav-item"><a class="nav-link" href="#other-services" data-lang-key="nav_other">خدماتنا الأخرى</a></li>
+          <li class="nav-item"><a class="nav-link" href="#estimator" data-lang-key="nav_estimator">حاسبة الأسعار</a></li>
+          <li class="nav-item"><a class="nav-link" href="#why" data-lang-key="nav_why">لماذا نحن</a></li>
+          <li class="nav-item"><a class="nav-link" href="#coverage" data-lang-key="nav_coverage">مناطق الخدمة</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials" data-lang-key="nav_testimonials">آراء العملاء</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact" data-lang-key="nav_contact">اتصل بنا</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-glowing-sphere-1"></div>
+    <div class="hero-glowing-sphere-2"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-7 text-center text-lg-start">
+          <div class="hero-badge">
+            <i class="fa-solid fa-truck-monster"></i>
+            <span data-lang-key="hero_badge_text">خدمة طرق سريعة 24/7 طوال أيام الأسبوع</span>
+          </div>
+          <h1 data-lang-key="hero_title">خدمة سيارات متنقلة شاملة في الكويت</h1>
+          <p data-lang-key="hero_subtitle">تبديل بطاريات، بنشر، زيت، وميكانيك. نأتيك أينما كنت بورشة متكاملة ومحترفين.</p>
+          <a href="https://wa.me/96555150444" class="btn btn-cta" id="hero-wa-link">
+            <span data-lang-key="hero_cta">اطلب خدمة الآن</span> &larr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Services (Batteries) -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="services_title">خدمات البطاريات</h2>
+        <p data-lang-key="services_desc">نوفر أفضل الماركات العالمية مع ضمان وتركيب فوري</p>
+      </div>
+      <div class="row g-4">
+        
+        <!-- Service Card 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card" onclick="openServiceModal('battery')">
+            <div class="service-img-wrapper">
+              <!-- Inline Premium vector SVG for Battery Replacement -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="bat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                  </linearGradient>
+                  <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#d97706"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="220" fill="url(#bat-grad)"/>
+                <path d="M 0,20 L 400,20 M 0,60 L 400,60 M 0,100 L 400,100 M 0,140 L 400,140 M 0,180 L 400,180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                <path d="M 40,0 L 40,220 M 100,0 L 100,220 M 160,0 L 160,220 M 220,0 L 220,220 M 280,0 L 280,220 M 340,0 L 340,220" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                
+                <!-- Battery casing -->
+                <rect x="110" y="60" width="180" height="110" rx="10" fill="rgba(37, 99, 235, 0.15)" stroke="#2563eb" stroke-width="4"/>
+                <rect x="130" y="44" width="30" height="16" rx="3" fill="#ef4444"/>
+                <rect x="240" y="44" width="30" height="16" rx="3" fill="#2563eb"/>
+                <text x="145" y="56" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">+</text>
+                <text x="255" y="55" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">-</text>
+                <path d="M 200,80 L 210,105 L 190,115 L 205,145 L 180,120 L 200,110 Z" fill="url(#accent-grad)" filter="drop-shadow(0px 0px 8px rgba(245, 158, 11, 0.7))"/>
+                <rect x="140" y="140" width="20" height="10" rx="2" fill="#16a34a"/>
+                <rect x="165" y="140" width="20" height="10" rx="2" fill="#16a34a"/>
+                <rect x="190" y="140" width="20" height="10" rx="2" fill="#16a34a"/>
+                <rect x="215" y="140" width="20" height="10" rx="2" fill="#16a34a"/>
+                <rect x="240" y="140" width="20" height="10" rx="2" fill="rgba(255,255,255,0.1)"/>
+              </svg>
+            </div>
+            <div class="service-body">
+              <h4 data-lang-key="serv1_title">تبديل البطاريات</h4>
+              <p data-lang-key="serv1_desc">استبدال فوري للبطارية التالفة بأخرى أصلية مع ضمان رسمي.</p>
+              <span class="service-more-btn"><span data-lang-key="btn_learn_more">تفاصيل الخدمة</span> &larr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card" onclick="openServiceModal('diag')">
+            <div class="service-img-wrapper">
+              <!-- Inline Premium vector SVG for Computer Diagnostic -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="diag-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="220" fill="url(#diag-grad)"/>
+                <path d="M 0,20 L 400,20 M 0,60 L 400,60 M 0,100 L 400,100 M 0,140 L 400,140 M 0,180 L 400,180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                <path d="M 40,0 L 40,220 M 100,0 L 100,220 M 160,0 L 160,220 M 220,0 L 220,220 M 280,0 L 280,220 M 340,0 L 340,220" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                
+                <!-- Diagnostic scanner dashboard -->
+                <rect x="90" y="45" width="220" height="130" rx="12" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+                <rect x="105" y="55" width="190" height="110" rx="6" fill="#0b0f19" stroke="#3b82f6" stroke-width="2"/>
+                <path d="M 115,110 L 140,110 L 150,80 L 160,140 L 175,95 L 185,115 L 200,110 L 220,60 L 235,150 L 250,110 L 285,110" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0px 0px 6px rgba(34, 197, 94, 0.6))"/>
+                <path d="M 120,70 L 130,70 L 130,65 L 135,65 L 135,70 L 145,70 L 145,80 L 148,80 L 148,85 L 137,85 L 137,90 L 128,90 L 128,85 L 117,85 L 117,80 L 120,80 Z" fill="#fbbf24"/>
+                <circle cx="270" cy="75" r="5" fill="#ef4444"/>
+                <circle cx="270" cy="75" r="10" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="service-body">
+              <h4 data-lang-key="serv2_title">تشخيص الأعطال</h4>
+              <p data-lang-key="serv2_desc">فحص كمبيوتر كامل للكهرباء والدينامو لمعرفة سبب العطل.</p>
+              <span class="service-more-btn"><span data-lang-key="btn_learn_more">تفاصيل الخدمة</span> &larr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card" onclick="openServiceModal('emerg')">
+            <div class="service-img-wrapper">
+              <!-- Inline Premium vector SVG for Emergency jump start -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="emerg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="220" fill="url(#emerg-grad)"/>
+                <path d="M 0,20 L 400,20 M 0,60 L 400,60 M 0,100 L 400,100 M 0,140 L 400,140 M 0,180 L 400,180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                <path d="M 40,0 L 40,220 M 100,0 L 100,220 M 160,0 L 160,220 M 220,0 L 220,220 M 280,0 L 280,220 M 340,0 L 340,220" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                
+                <circle cx="200" cy="110" r="70" fill="rgba(239, 68, 68, 0.1)" stroke="#ef4444" stroke-width="3" stroke-dasharray="8,4"/>
+                <path d="M 200,65 L 245,85 L 245,130 Q 200,165 200,165 Q 155,130 155,130 L 155,85 Z" fill="#ef4444" opacity="0.85"/>
+                <path d="M 205,80 L 218,105 L 198,110 L 210,145 L 182,120 L 198,115 Z" fill="#fff" filter="drop-shadow(0px 0px 4px rgba(255,255,255,0.8))"/>
+                <circle cx="200" cy="110" r="85" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2"/>
+                <circle cx="285" cy="110" r="6" fill="#ef4444"/>
+                <circle cx="115" cy="110" r="6" fill="#ef4444"/>
+              </svg>
+            </div>
+            <div class="service-body">
+              <h4 data-lang-key="serv3_title">إنقاذ طوارئ</h4>
+              <p data-lang-key="serv3_desc">خدمة 24/7 لبدء التشغيل (Jump Start) في حال نفاد البطارية.</p>
+              <span class="service-more-btn"><span data-lang-key="btn_learn_more">تفاصيل الخدمة</span> &larr;</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Services Section -->
+  <section id="other-services" class="py-5">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="other_title">خدمات متنقلة إضافية</h2>
+        <p data-lang-key="other_subtitle">ورشة متكاملة تصل إليك.. صيانة شاملة لسيارتك</p>
+      </div>
+      
+      <div class="row g-4">
+          <!-- Other Service 1 -->
+          <div class="col-6 col-lg-3 col-md-6">
+              <div class="other-service-item" onclick="openServiceModal('oil')">
+                  <div class="os-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-os-icon">
+                      <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/>
+                    </svg>
+                  </div>
+                  <h5 data-lang-key="os1_title">تبديل زيت</h5>
+                  <p class="small text-muted" data-lang-key="os1_desc">زيوت أصلية وتغيير فلاتر بسرعة.</p>
+              </div>
+          </div>
+          
+          <!-- Other Service 2 -->
+          <div class="col-6 col-lg-3 col-md-6">
+              <div class="other-service-item" onclick="openServiceModal('wiper')">
+                  <div class="os-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-os-icon">
+                      <path d="M14.22 17.66a6 6 0 0 0 0-8.49L5.74 17.66h8.48z"/>
+                      <path d="M12 21A9 9 0 0 0 3 12"/>
+                    </svg>
+                  </div>
+                  <h5 data-lang-key="os2_title">تبديل مساحات</h5>
+                  <p class="small text-muted" data-lang-key="os2_desc">سفايف ومساحات لرؤية واضحة.</p>
+              </div>
+          </div>
+          
+          <!-- Other Service 3 -->
+          <div class="col-6 col-lg-3 col-md-6">
+              <div class="other-service-item" onclick="openServiceModal('tire')">
+                  <div class="os-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-os-icon">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </div>
+                  <h5 data-lang-key="os3_title">بنشر متنقل</h5>
+                  <p class="small text-muted" data-lang-key="os3_desc">إصلاح الإطارات أو تبديلها في موقعك.</p>
+              </div>
+          </div>
+          
+          <!-- Other Service 4 -->
+          <div class="col-6 col-lg-3 col-md-6">
+              <div class="other-service-item" onclick="openServiceModal('electric')">
+                  <div class="os-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-os-icon">
+                      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    </svg>
+                  </div>
+                  <h5 data-lang-key="os4_title">ميكانيك وكهرباء</h5>
+                  <p class="small text-muted" data-lang-key="os4_desc">صيانة المحرك والتمديدات الكهربائية.</p>
+              </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Cost Estimator Section -->
+  <section id="estimator" class="py-5">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="est_title">حاسبة التكلفة التقديرية</h2>
+        <p data-lang-key="est_subtitle">احسب تكلفة الخدمة التقريبية لسيارتك فوراً</p>
+      </div>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="estimator-card">
+            <form id="estimator-form">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label class="form-label fw-bold" data-lang-key="est_service_label" style="color: var(--text-main);">نوع الخدمة المطلوبة</label>
+                  <select class="form-select estimator-select w-100" id="est-service" onchange="calculateEstimate()">
+                    <option value="battery" data-lang-key="est_opt_battery">تبديل بطارية (شاملة التركيب والضمان)</option>
+                    <option value="tire" data-lang-key="est_opt_tire">بنشر وإصلاح إطارات متنقل</option>
+                    <option value="oil" data-lang-key="est_opt_oil">تبديل زيت وفلتر المحرك</option>
+                    <option value="diag" data-lang-key="est_opt_diag">فحص كمبيوتر وتشخيص أعطال</option>
+                    <option value="electric" data-lang-key="est_opt_electric">صيانة كهرباء وميكانيك</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-bold" data-lang-key="est_car_label" style="color: var(--text-main);">فئة / حجم السيارة</label>
+                  <select class="form-select estimator-select w-100" id="est-car" onchange="calculateEstimate()">
+                    <option value="small" data-lang-key="est_car_small">صغيرة (صالون / سيدان)</option>
+                    <option value="medium" data-lang-key="est_car_medium">متوسطة (كروس أوفر / SUV صغيرة)</option>
+                    <option value="large" data-lang-key="est_car_large">كبيرة (عائلية / SUV كبيرة / وانيت)</option>
+                    <option value="luxury" data-lang-key="est_car_luxury">فارهة / رياضية (أوروبي / سبورت)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <!-- Dynamic Price Breakdown Card -->
+              <div class="estimator-breakdown-card mt-4">
+                <h6 class="fw-bold mb-3" data-lang-key="estimated_breakdown_label" style="color: var(--text-main);">تفاصيل السعر التقديري:</h6>
+                <div class="d-flex justify-content-between my-2">
+                  <span class="text-muted" data-lang-key="estimated_base_fee">رسوم العمل والوصول للموقع</span>
+                  <span id="est-breakdown-base" class="fw-bold text-main">10 د.ك</span>
+                </div>
+                <div class="d-flex justify-content-between my-2">
+                  <span class="text-muted" data-lang-key="estimated_parts_fee">سعر المواد أو القطع التقريبي</span>
+                  <span id="est-breakdown-parts" class="fw-bold text-main">10 د.ك</span>
+                </div>
+                <hr class="my-2" style="border-color: var(--border-color)">
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="fw-bold text-main" data-lang-key="estimated_total">المجموع التقديري الكلي</span>
+                  <span class="estimator-price m-0" id="estimated-price">20 د.ك - 26 د.ك</span>
+                </div>
+                <span class="text-muted small mt-3" data-lang-key="est_disclaimer" style="display: block;">* السعر النهائي قد يختلف بناءً على نوع القطعة والبطارية المحددة وموديل السيارة.</span>
+              </div>
+              
+              <div class="text-center mt-4">
+                <a href="https://wa.me/96555150444" id="estimator-whatsapp-btn" target="_blank" class="btn btn-cta">
+                  <span data-lang-key="est_cta">اطلب الخدمة بهذا السعر التقديري</span> &larr;
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us Section -->
+  <section id="why" class="py-5" style="background-color: var(--bg-body);">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="why_title">لماذا نحن الخيار الأفضل؟</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3 class="mb-3" style="color: var(--primary);">⚡</h3>
+            <h5 data-lang-key="why1_title">سرعة فائقة</h5>
+            <p class="text-muted small" data-lang-key="why1_desc">وصول خلال 30 دقيقة لأغلب مناطق الكويت.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3 class="mb-3" style="color: var(--success);">🛡️</h3>
+            <h5 data-lang-key="why2_title">ضمان حقيقي</h5>
+            <p class="text-muted small" data-lang-key="why2_desc">استبدال مجاني في حال وجود عطل مصنعي.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3 class="mb-3" style="color: var(--accent);">💰</h3>
+            <h5 data-lang-key="why3_title">أسعار منافسة</h5>
+            <p class="text-muted small" data-lang-key="why3_desc">نوفر لك أفضل الماركات بأسعار الجملة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Automobile Brands Slider Section -->
+  <section id="brands" class="py-4" style="background-color: var(--bg-body); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="brands-container">
+        <div class="brands-track" id="brands-track">
+          <!-- Brands will be dynamically rendered & duplicated for infinite loop in JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Areas Section (Interactive Map) -->
+  <section id="coverage" class="py-5">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="cov_title">مناطق التغطية والخدمة</h2>
+        <p data-lang-key="cov_subtitle">نغطي كافة مناطق ومحافظات الكويت على مدار 24 ساعة طوال أيام الأسبوع</p>
+      </div>
+      
+      <!-- Interactive Map Layout -->
+      <div class="map-container-wrapper mb-5">
+        <!-- Stylized Interactive Vector Blueprint Map of Kuwait -->
+        <svg id="kuwait-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+          <defs>
+            <!-- Radar glow radial gradient -->
+            <radialGradient id="radar-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#2563eb" stop-opacity="0.4"/>
+              <stop offset="50%" stop-color="#2563eb" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          
+          <!-- Technical Grid Background -->
+          <g stroke="var(--border-color)" stroke-width="0.5" opacity="0.3">
+            <path d="M 0,40 L 600,40 M 0,80 L 600,80 M 0,120 L 600,120 M 0,160 L 600,160 M 0,200 L 600,200 M 0,240 L 600,240 M 0,280 L 600,280 M 0,320 L 600,320"/>
+            <path d="M 50,0 L 50,380 M 100,0 L 100,380 M 150,0 L 150,380 M 200,0 L 200,380 M 250,0 L 250,380 M 300,0 L 300,380 M 350,0 L 350,380 M 400,0 L 400,380 M 450,0 L 450,380 M 500,0 L 500,380 M 550,0 L 550,380"/>
+          </g>
+          
+          <!-- Connecting Nodes Pathways -->
+          <g stroke="var(--primary)" stroke-dasharray="4,4" opacity="0.4" stroke-width="1.5">
+            <line x1="220" y1="170" x2="350" y2="120" />
+            <line x1="350" y1="120" x2="400" y2="120" />
+            <line x1="400" y1="120" x2="360" y2="175" />
+            <line x1="360" y1="175" x2="420" y2="185" />
+            <line x1="360" y1="175" x2="370" y2="250" />
+          </g>
+          
+          <!-- Governorate Polygons (Interactive) -->
+          <g id="regions-group">
+            <!-- Jahra -->
+            <path d="M 80,60 L 260,40 L 280,150 L 240,220 L 120,240 L 60,160 Z" class="map-region" data-region="jahra" onclick="selectMapRegion('jahra')" />
+            <!-- Capital -->
+            <path d="M 260,40 L 330,60 L 320,130 L 280,150 Z" class="map-region" data-region="capital" onclick="selectMapRegion('capital')" />
+            <!-- Hawally -->
+            <path d="M 330,60 L 380,70 L 370,140 L 320,130 Z" class="map-region" data-region="hawally" onclick="selectMapRegion('hawally')" />
+            <!-- Farwaniya -->
+            <path d="M 280,150 L 320,130 L 340,185 L 295,205 Z" class="map-region" data-region="farwaniya" onclick="selectMapRegion('farwaniya')" />
+            <!-- Mubarak Al-Kabeer -->
+            <path d="M 370,140 L 400,150 L 380,215 L 340,185 Z" class="map-region" data-region="mubarak" onclick="selectMapRegion('mubarak')" />
+            <!-- Ahmadi -->
+            <path d="M 295,205 L 340,185 L 380,215 L 400,150 L 370,310 L 240,290 Z" class="map-region" data-region="ahmadi" onclick="selectMapRegion('ahmadi')" />
+          </g>
+          
+          <!-- Animated Radar Signals -->
+          <g>
+            <circle cx="330" cy="140" r="8" fill="var(--accent)" />
+            <circle cx="330" cy="140" r="25" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.6">
+              <animate attributeName="r" values="8;45" dur="3s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.8;0" dur="3s" repeatCount="indefinite" />
+            </circle>
+            
+            <!-- Floating nodes representing workshop vans -->
+            <circle cx="160" cy="150" r="5" fill="var(--success)" />
+            <circle cx="300" cy="90" r="5" fill="var(--success)" />
+            <circle cx="350" cy="110" r="5" fill="var(--success)" />
+            <circle cx="310" cy="170" r="5" fill="var(--success)" />
+            <circle cx="365" cy="175" r="5" fill="var(--success)" />
+            <circle cx="330" cy="245" r="5" fill="var(--success)" />
+          </g>
+        </svg>
+        
+        <!-- Floating Glassmorphic Details Card -->
+        <div class="map-details-card">
+          <div class="card-header border-0 bg-transparent pb-0 p-0">
+            <span class="badge bg-success-glow text-success mb-2" id="map-region-status" data-lang-key="map_status_active">● متواجدون الآن بالقرب منك</span>
+            <h4 class="fw-bold text-main" id="map-region-name">محافظة العاصمة</h4>
+          </div>
+          <div class="card-body p-0 mt-3">
+            <p class="text-muted small" id="map-region-desc">تغطية كاملة لمدينة الكويت وكافة المناطق السكنية.</p>
+            
+            <div class="d-flex justify-content-between border-top border-bottom py-3 my-3 border-color-soft">
+              <div class="stat-item text-center flex-fill">
+                <span class="stat-label d-block text-muted small" data-lang-key="map_vans_label">الورش النشطة</span>
+                <span class="stat-val fw-bold text-primary" id="map-region-vans">5 ورش</span>
+              </div>
+              <div class="stat-item text-center flex-fill border-start border-end border-color-soft">
+                <span class="stat-label d-block text-muted small" data-lang-key="map_time_label">زمن الوصول</span>
+                <span class="stat-val fw-bold text-accent" id="map-region-time">20 دقيقة</span>
+              </div>
+            </div>
+            
+            <a href="https://wa.me/96555150444" id="map-region-wa-btn" target="_blank" class="btn btn-cta btn-sm w-100 py-2">
+              <span data-lang-key="map_region_cta">اطلب الخدمة في هذه المحافظة</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Governorate Grid Cards (For quick viewing) -->
+      <div class="row g-4">
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('capital')">
+            <i class="fa-solid fa-city"></i>
+            <h5 data-lang-key="cov1_title">محافظة العاصمة</h5>
+            <p data-lang-key="cov1_desc">مدينة الكويت، كيفان، الروضة، قرطبة، السرة وكافة المناطق.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('hawally')">
+            <i class="fa-solid fa-building-user"></i>
+            <h5 data-lang-key="cov2_title">محافظة حولي</h5>
+            <p data-lang-key="cov2_desc">حولي، السالمية، سلوى، الجابرية، بيان وكافة المناطق المجاورة.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('farwaniya')">
+            <i class="fa-solid fa-car-side"></i>
+            <h5 data-lang-key="cov3_title">محافظة الفروانية</h5>
+            <p data-lang-key="cov3_desc">الفروانية، خيطان، الجليب، الأندلس، العارضية وضواحيها.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('mubarak')">
+            <i class="fa-solid fa-house-chimney-window"></i>
+            <h5 data-lang-key="cov4_title">محافظة مبارك الكبير</h5>
+            <p data-lang-key="cov4_desc">صباح السالم، القرين، القصور، العدان، المسايل وغيرها.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('ahmadi')">
+            <i class="fa-solid fa-warehouse"></i>
+            <h5 data-lang-key="cov5_title">محافظة الأحمدي</h5>
+            <p data-lang-key="cov5_desc">الفحيحيل، المنقف، أبو حليفة، الصباحية، الفنطاس والوفرة.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-6">
+          <div class="coverage-card" onclick="selectMapRegion('jahra')">
+            <i class="fa-solid fa-tree-city"></i>
+            <h5 data-lang-key="cov6_title">محافظة الجهراء</h5>
+            <p data-lang-key="cov6_desc">مدينة الجهراء، سعد العبدالله، النسيم، النعيم، والواحة.</p>
+            <span class="coverage-badge" data-lang-key="cov_active">متاحة الآن</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-5" style="background-color: var(--bg-body);">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-lang-key="test_title">آراء عملائنا الكرام</h2>
+        <p data-lang-key="test_subtitle">نعتز بثقتكم ونسعى دائماً لتقديم أفضل الخدمات السريعة</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+            <p class="testimonial-text" data-lang-key="test1_text">"خدمة سريعة وممتازة، تعطلت سيارتي أمام البيت وجاؤوا خلال 25 دقيقة وقاموا بتبديل البطارية وفحص الكهرباء فوراً. أنصح بالتعامل معهم."</p>
+            <div class="reviewer-info">
+              <div class="reviewer-avatar">أ</div>
+              <div class="reviewer-details">
+                <h6 data-lang-key="test1_name">أبو أحمد الكندري</h6>
+                <div class="stars-rating">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+            <p class="testimonial-text" data-lang-key="test2_text">"البنشر المتنقل أنقذني في طريق السفر، تعامل راقي ومصداقية في السعر وقطع غيار أصلية مع كفالة. شكراً لكم."</p>
+            <div class="reviewer-info">
+              <div class="reviewer-avatar">س</div>
+              <div class="reviewer-details">
+                <h6 data-lang-key="test2_name">سلمان العتيبي</h6>
+                <div class="stars-rating">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+            <p class="testimonial-text" data-lang-key="test3_text">"سعر تبديل الزيت والفلتر عندهم ممتاز مقارنة بالورش الأخرى، والأجمل أن الخدمة عند البيت وبشكل نظيف واحترافي جداً."</p>
+            <div class="reviewer-info">
+              <div class="reviewer-avatar">م</div>
+              <div class="reviewer-details">
+                <h6 data-lang-key="test3_name">أم محمد المطيري</h6>
+                <div class="stars-rating">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Footer -->
+  <footer id="contact">
+    <div class="container">
+      <h3 data-lang-key="footer_cta">جاهزون لخدمتك الآن</h3>
+      <p class="mt-3 mb-4" data-lang-key="footer_desc">اتصل بنا للحصول على استشارة مجانية وعرض سعر فوري</p>
+      <a href="tel:+96555150444" class="btn btn-light fw-bold me-2 mb-2"> +965 55150444 </a>
+      <p class="mt-5 small opacity-50">&copy; 2026 <span data-lang-key="nav_brand">كراج النهر الهادي</span></p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/96555150444" class="whatsapp-btn" target="_blank" aria-label="WhatsApp" id="floating-wa-btn">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Mobile Sticky Action Bar -->
+  <div class="mobile-action-bar">
+    <a href="tel:+96555150444" class="mobile-action-btn btn-mobile-call">
+      <i class="fa-solid fa-phone"></i>
+      <span data-lang-key="mobile_call">اتصل الآن</span>
+    </a>
+    <a href="https://wa.me/96555150444" class="mobile-action-btn btn-mobile-wa" target="_blank" id="sticky-wa-link">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span data-lang-key="mobile_wa">واتساب</span>
+    </a>
+  </div>
+
+  <!-- Service Details Modal Template -->
+  <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="serviceModalLabel">اسم الخدمة</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-2">
+          <div class="text-center mb-3">
+            <div class="modal-icon-container" id="modal-service-icon">
+              <!-- SVG Icon will be inserted here -->
+            </div>
+          </div>
+          <div class="modal-description-text mb-4" id="modal-service-desc">
+            <!-- Details list will be inserted here -->
+          </div>
+          <div class="modal-info-pills d-flex justify-content-around mt-3">
+            <div class="info-pill">
+              <span class="info-pill-title" data-lang-key="modal_time_label">زمن الإنجاز</span>
+              <span class="info-pill-value" id="modal-service-time">20 دقيقة</span>
+            </div>
+            <div class="info-pill">
+              <span class="info-pill-title" data-lang-key="modal_warranty_label">الضمان والكفالة</span>
+              <span class="info-pill-value" id="modal-service-warranty">كفالة سنة</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 justify-content-center pt-0">
+          <a href="https://wa.me/96555150444" id="modal-wa-btn" target="_blank" class="btn btn-cta w-100 py-3">
+            <span data-lang-key="modal_cta">طلب الخدمة الآن عبر واتساب</span> &larr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Language Translation Data Dictionary
+    const data = {
+        ar: {
+            nav_brand: "كراج النهر الهادي",
+            nav_services: "خدمات البطاريات",
+            nav_other: "خدماتنا الأخرى",
+            nav_estimator: "حاسبة الأسعار",
+            nav_why: "لماذا نحن",
+            nav_coverage: "مناطق الخدمة",
+            nav_testimonials: "آراء العملاء",
+            nav_contact: "اتصل بنا",
+            
+            hero_badge_text: "خدمة طرق سريعة 24/7 طوال أيام الأسبوع",
+            hero_title: "خدمة سيارات متنقلة شاملة في الكويت",
+            hero_subtitle: "تبديل بطاريات، بنشر، زيت، وميكانيك. نأتيك أينما كنت بورشة متكاملة ومحترفين.",
+            hero_cta: "اطلب خدمة الآن",
+            
+            services_title: "خدمات البطاريات",
+            services_desc: "نوفر أفضل الماركات العالمية مع ضمان وتركيب فوري",
+            serv1_title: "تبديل البطاريات",
+            serv1_desc: "استبدال فوري للبطارية التالفة بأخرى أصلية مع ضمان رسمي.",
+            serv2_title: "تشخيص الأعطال",
+            serv2_desc: "فحص كمبيوتر كامل للكهرباء والدينامو لمعرفة سبب العطل.",
+            serv3_title: "إنقاذ طوارئ",
+            serv3_desc: "خدمة 24/7 لبدء التشغيل (Jump Start) في حال نفاد البطارية.",
+            btn_learn_more: "تفاصيل الخدمة",
+            
+            other_title: "خدمات متنقلة إضافية",
+            other_subtitle: "ورشة متكاملة تصل إليك.. صيانة شاملة لسيارتك",
+            os1_title: "تبديل زيت",
+            os1_desc: "زيوت أصلية وتغيير فلاتر بسرعة.",
+            os2_title: "تبديل مساحات",
+            os2_desc: "سفايف ومساحات لرؤية واضحة.",
+            os3_title: "بنشر متنقل",
+            os3_desc: "إصلاح الإطارات أو تبديلها في موقعك.",
+            os4_title: "ميكانيك وكهرباء",
+            os4_desc: "صيانة المحرك والتمديدات الكهربائية.",
+            
+            est_title: "حاسبة التكلفة التقديرية",
+            est_subtitle: "احسب تكلفة الخدمة التقريبية لسيارتك فوراً",
+            est_service_label: "نوع الخدمة المطلوبة",
+            est_car_label: "فئة / حجم السيارة",
+            est_opt_battery: "تبديل بطارية (شاملة التركيب والضمان)",
+            est_opt_tire: "بنشر وإصلاح إطارات متنقل",
+            est_opt_oil: "تبديل زيت وفلتر المحرك",
+            est_opt_diag: "فحص كمبيوتر وتشخيص أعطال",
+            est_opt_electric: "صيانة كهرباء وميكانيك",
+            est_car_small: "صغيرة (صالون / سيدان)",
+            est_car_medium: "متوسطة (كروس أوفر / SUV صغيرة)",
+            est_car_large: "كبيرة (عائلية / SUV كبيرة / وانيت)",
+            est_car_luxury: "فارهة / رياضية (أوروبي / سبورت)",
+            estimated_breakdown_label: "تفاصيل السعر التقديري:",
+            estimated_base_fee: "رسوم العمل والوصول للموقع",
+            estimated_parts_fee: "سعر المواد أو القطع التقريبي",
+            estimated_total: "المجموع التقديري الكلي",
+            est_disclaimer: "* السعر النهائي قد يختلف بناءً على نوع القطعة والبطارية المحددة وموديل السيارة.",
+            est_cta: "اطلب الخدمة بهذا السعر التقديري",
+            
+            why_title: "لماذا نحن الخيار الأفضل؟",
+            why1_title: "سرعة فائقة",
+            why1_desc: "وصول خلال 30 دقيقة لأغلب مناطق الكويت.",
+            why2_title: "ضمان حقيقي",
+            why2_desc: "استبدال مجاني في حال وجود عطل مصنعي.",
+            why3_title: "أسعار منافسة",
+            why3_desc: "نوفر لك أفضل الماركات بأسعار الجملة.",
+            
+            cov_title: "مناطق التغطية والخدمة",
+            cov_subtitle: "نغطي كافة مناطق ومحافظات الكويت على مدار 24 ساعة طوال أيام الأسبوع",
+            cov1_title: "محافظة العاصمة",
+            cov1_desc: "مدينة الكويت، كيفان، الروضة، قرطبة، السرة وكافة المناطق.",
+            cov2_title: "محافظة حولي",
+            cov2_desc: "حولي، السالمية، سلوى، الجابرية، بيان وكافة المناطق المجاورة.",
+            cov3_title: "محافظة الفروانية",
+            cov3_desc: "الفروانية، خيطان، الجليب، الأندلس، العارضية وضواحيها.",
+            cov4_title: "محافظة مبارك الكبير",
+            cov4_desc: "صباح السالم، القرين، القصور، العدان، المسايل وغيرها.",
+            cov5_title: "محافظة الأحمدي",
+            cov5_desc: "الفحيحيل، المنقف، أبو حليفة، الصباحية، الفنطاس والوفرة.",
+            cov6_title: "محافظة الجهراء",
+            cov6_desc: "مدينة الجهراء، سعد العبدالله، النسيم، النعيم، والواحة.",
+            cov_active: "متاحة الآن",
+            
+            map_status_active: "● متواجدون الآن بالقرب منك",
+            map_vans_label: "الورش النشطة",
+            map_time_label: "زمن الوصول",
+            map_region_cta: "اطلب الخدمة في هذه المحافظة",
+            modal_time_label: "زمن الإنجاز",
+            modal_warranty_label: "الضمان والكفالة",
+            modal_cta: "طلب الخدمة الآن عبر واتساب",
+
+            test_title: "آراء عملائنا الكرام",
+            test_subtitle: "نعتز بثقتكم ونسعى دائماً لتقديم أفضل الخدمات السريعة",
+            test1_text: "\"خدمة سريعة وممتازة، تعطلت سيارتي أمام البيت وجاؤوا خلال 25 دقيقة وقاموا بتبديل البطارية وفحص الكهرباء فوراً. أنصح بالتعامل معهم.\"",
+            test1_name: "أبو أحمد الكندري",
+            test2_text: "\"البنشر المتنقل أنقذني في طريق السفر، تعامل راقي ومصداقية في السعر وقطع غيار أصلية مع كفالة. شكراً لكم.\"",
+            test2_name: "سلمان العتيبي",
+            test3_text: "\"سعر تبديل الزيت والفلتر عندهم ممتاز مقارنة بالورش الأخرى، والأجمل أن الخدمة عند البيت وبشكل نظيف واحترافي جداً.\"",
+            test3_name: "أم محمد المطيري",
+            
+            footer_cta: "جاهزون لخدمتك الآن",
+            footer_desc: "اتصل بنا للحصول على استشارة مجانية وعرض سعر فوري",
+            mobile_call: "اتصل الآن",
+            mobile_wa: "واتساب"
+        },
+        en: {
+            nav_brand: "Al-Nahr Al-Hadi",
+            nav_services: "Battery Services",
+            nav_other: "Other Services",
+            nav_estimator: "Price Estimator",
+            nav_why: "Why Us",
+            nav_coverage: "Service Areas",
+            nav_testimonials: "Testimonials",
+            nav_contact: "Contact",
+            
+            hero_badge_text: "Roadside Service 24/7 All Week Long",
+            hero_title: "Comprehensive Mobile Car Services in Kuwait",
+            hero_subtitle: "Battery replacement, tires, oil change, and mechanics. A fully equipped workshop coming to you.",
+            hero_cta: "Request Service Now",
+            
+            services_title: "Battery Services",
+            services_desc: "We provide the best global brands with warranty and instant installation",
+            serv1_title: "Battery Replacement",
+            serv1_desc: "Instant replacement with genuine battery and official warranty.",
+            serv2_title: "Fault Diagnosis",
+            serv2_desc: "Full computer check for electrical systems and alternator.",
+            serv3_title: "Emergency Rescue",
+            serv3_desc: "24/7 Jump Start service for dead batteries.",
+            btn_learn_more: "Service Details",
+            
+            other_title: "Additional Mobile Services",
+            other_subtitle: "A complete workshop coming to you... comprehensive maintenance",
+            os1_title: "Oil Change",
+            os1_desc: "Genuine oils and filter changes done fast.",
+            os2_title: "Wiper Blades",
+            os2_desc: "New wipers for clear vision in all weather.",
+            os3_title: "Mobile Tire Repair",
+            os3_desc: "On-site tire repair or replacement.",
+            os4_title: "Mechanic & Electric",
+            os4_desc: "Engine maintenance and electrical wiring.",
+            
+            est_title: "Estimated Cost Calculator",
+            est_subtitle: "Calculate the approximate service cost for your car instantly",
+            est_service_label: "Service Requested",
+            est_car_label: "Car Class / Size",
+            est_opt_battery: "Battery Replacement (Includes Install & Warranty)",
+            est_opt_tire: "Mobile Tire Repair / Patching",
+            est_opt_oil: "Engine Oil & Filter Change",
+            est_opt_diag: "Computer Diagnostics & Fault Check",
+            est_opt_electric: "Mechanical & Electrical Repair",
+            est_car_small: "Small (Sedan / Coupe)",
+            est_car_medium: "Medium (Crossover / Small SUV)",
+            est_car_large: "Large (Family SUV / Truck / Pickup)",
+            est_car_luxury: "Luxury / Sport (European / High-end)",
+            estimated_breakdown_label: "Estimated Pricing Details:",
+            estimated_base_fee: "Labor & Dispatch Fee",
+            estimated_parts_fee: "Approx. Parts Cost",
+            estimated_total: "Estimated Grand Total",
+            est_disclaimer: "* Final pricing varies based on part brand, battery specs, and vehicle model.",
+            est_cta: "Order Service at this Estimate",
+            
+            why_title: "Why Choose Us?",
+            why1_title: "Super Fast",
+            why1_desc: "Arrival within 30 minutes for most areas.",
+            why2_title: "Real Warranty",
+            why2_desc: "Free replacement in case of manufacturing defects.",
+            why3_title: "Competitive Prices",
+            why3_desc: "Top brands at wholesale prices.",
+            
+            cov_title: "Coverage & Service Areas",
+            cov_subtitle: "We cover all areas and governorates of Kuwait 24/7",
+            cov1_title: "Capital Governorate",
+            cov1_desc: "Kuwait City, Kaifan, Rawda, Qortuba, Surra, and all areas.",
+            cov2_title: "Hawally Governorate",
+            cov2_desc: "Hawally, Salmiya, Salwa, Jabriya, Bayan, and neighborhoods.",
+            cov3_title: "Farwaniya Governorate",
+            cov3_desc: "Farwaniya, Khaitan, Jleeb, Andalus, Ardiya, and suburbs.",
+            cov4_title: "Mubarak Al-Kabeer",
+            cov4_desc: "Sabah Al-Salem, Al-Qurain, Al-Qusour, Al-Adan, Masayel, etc.",
+            cov5_title: "Ahmadi Governorate",
+            cov5_desc: "Fahaheel, Mangaf, Abu Halifa, Sabahiya, Fintas, and Wafra.",
+            cov6_title: "Jahra Governorate",
+            cov6_desc: "Jahra City, Saad Al-Abdullah, Naseem, Naeem, and Waha.",
+            cov_active: "Available Now",
+            
+            map_status_active: "● Active in your area now",
+            map_vans_label: "Active Units",
+            map_time_label: "Est. Arrival",
+            map_region_cta: "Request Service in this Area",
+            modal_time_label: "Service Duration",
+            modal_warranty_label: "Warranty Period",
+            modal_cta: "Order Service via WhatsApp Now",
+
+            test_title: "What Our Customers Say",
+            test_subtitle: "We value your trust and strive to deliver the fastest service",
+            test1_text: "\"Super fast and excellent service. My car broke down right at home, they arrived in 25 minutes, replaced the battery, and tested the electrics immediately. Highly recommended!\"",
+            test1_name: "Abu Ahmad Al-Kandari",
+            test2_text: "\"The mobile tire repair saved me on the highway. Very professional attitude, honest pricing, and genuine parts with warranty. Thank you!\"",
+            test2_name: "Salman Al-Otaibi",
+            test3_text: "\"Their price for oil and filter changes is amazing compared to static garages. Best of all, it was done cleanly right in my driveway!\"",
+            test3_name: "Um Mohammad Al-Mutairi",
+            
+            footer_cta: "Ready to Serve You",
+            footer_desc: "Contact us for a free consultation and instant quote",
+            mobile_call: "Call Now",
+            mobile_wa: "WhatsApp"
+        }
+    };
+
+    let currentLang = 'ar';
+    const langBtn = document.getElementById('lang-btn');
+    const html = document.documentElement;
+    const bootstrapCss = document.getElementById('bootstrap-css');
+
+    // Language Toggle logic
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+            const key = el.getAttribute('data-lang-key');
+            if (data[currentLang][key]) {
+                el.textContent = data[currentLang][key];
+            }
+        });
+
+        if (currentLang === 'en') {
+            html.setAttribute('dir', 'ltr');
+            html.setAttribute('lang', 'en');
+            langBtn.textContent = 'عربي';
+            bootstrapCss.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css";
+        } else {
+            html.setAttribute('dir', 'rtl');
+            html.setAttribute('lang', 'ar');
+            langBtn.textContent = 'EN';
+            bootstrapCss.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css";
+        }
+        
+        // Refresh dynamic UI elements
+        calculateEstimate();
+        updateSelectedMapUI();
+    }
+
+    // Theme Toggle logic
+    function toggleTheme() {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeUI(newTheme);
+    }
+
+    function updateThemeUI(theme) {
+        const themeBtn = document.getElementById('theme-btn');
+        if (theme === 'dark') {
+            themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        } else {
+            themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        }
+    }
+
+    // Initialize Theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeUI(savedTheme);
+
+    // Navbar Scroll shadow addition
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Cost Estimator calculation algorithm
+    const serviceBasePrice = {
+        battery: 20,
+        tire: 8,
+        oil: 15,
+        diag: 10,
+        electric: 25
+    };
+    
+    const carMultiplier = {
+        small: 1.0,
+        medium: 1.2,
+        large: 1.4,
+        luxury: 1.8
+    };
+
+    function calculateEstimate() {
+        const service = document.getElementById('est-service').value;
+        const car = document.getElementById('est-car').value;
+        
+        const basePrice = serviceBasePrice[service];
+        const multiplier = carMultiplier[car];
+        
+        const baseCalc = Math.round(basePrice * 0.4);
+        const partsCalc = Math.round(basePrice * multiplier * 0.6);
+        
+        const minTotal = baseCalc + partsCalc;
+        const maxTotal = Math.round(minTotal * 1.3);
+        
+        // Update Breakdown UI labels
+        const currency = currentLang === 'ar' ? 'د.ك' : 'KWD';
+        document.getElementById('est-breakdown-base').textContent = `${baseCalc} ${currency}`;
+        document.getElementById('est-breakdown-parts').textContent = `${partsCalc} ${currency}`;
+        
+        const priceLabel = `${minTotal} ${currency} - ${maxTotal} ${currency}`;
+        document.getElementById('estimated-price').textContent = priceLabel;
+        
+        // Update WhatsApp message redirect link
+        const whatsappBtn = document.getElementById('estimator-whatsapp-btn');
+        const serviceText = document.getElementById('est-service').options[document.getElementById('est-service').selectedIndex].text;
+        const carText = document.getElementById('est-car').options[document.getElementById('est-car').selectedIndex].text;
+        
+        let waText = "";
+        if (currentLang === 'ar') {
+            waText = `مرحبا كراج النهر الهادي، أرغب في طلب خدمة: ${serviceText} لسيارتي وهي من فئة: ${carText}. السعر التقديري حسب الموقع هو: ${priceLabel}.`;
+        } else {
+            waText = `Hello Al-Nahr Al-Hadi, I would like to request: ${serviceText} for my car class: ${carText}. The website estimated price is: ${priceLabel}.`;
+        }
+        
+        whatsappBtn.href = `https://wa.me/96555150444?text=${encodeURIComponent(waText)}`;
+    }
+
+    // Brands continuously scrolling slider configuration
+    const brandsList = [
+        { name: "TOYOTA", ar: "تويوتا", sub: "Japan" },
+        { name: "NISSAN", ar: "نيسان", sub: "Japan" },
+        { name: "FORD", ar: "فورد", sub: "USA" },
+        { name: "MERCEDES", ar: "مرسيدس", sub: "Germany" },
+        { name: "BMW", ar: "بي ام دبليو", sub: "Germany" },
+        { name: "CHEVROLET", ar: "شيفروليه", sub: "USA" },
+        { name: "LEXUS", ar: "لكزس", sub: "Japan" }
+    ];
+
+    function initBrandsSlider() {
+        const track = document.getElementById('brands-track');
+        let sliderHtml = "";
+        const doubledList = [...brandsList, ...brandsList];
+        
+        doubledList.forEach(brand => {
+            sliderHtml += `
+                <div class="brand-logo-card">
+                    <span>${brand.name}</span>
+                    <p>${brand.ar}</p>
+                </div>
+            `;
+        });
+        track.innerHTML = sliderHtml;
+    }
+
+    // --- Services Detailed Data & Modals Logic ---
+    const servicesDetailData = {
+        battery: {
+            titleAr: "تبديل البطاريات المتنقل",
+            titleEn: "Mobile Battery Replacement",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><line x1="6" y1="11" x2="10" y2="11"></line><line x1="14" y1="11" x2="18" y2="11"></line><line x1="16" y1="9" x2="16" y2="13"></line><line x1="6" y1="5" x2="6" y2="7"></line><line x1="18" y1="5" x2="18" y2="7"></line></svg>`,
+            descAr: `<ul>
+                <li>توصيل وتركيب فوري لجميع مناطق الكويت خلال 30 دقيقة.</li>
+                <li>بطاريات أصلية ومكفولة 100% (ألماني، كوري، ياباني، أمريكي).</li>
+                <li>فحص كامل للدينامو والكهرباء مجاناً مع التركيب.</li>
+                <li>ضمان رسمي مستند يسري في كافة الفروع والورش.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Express delivery and professional installation across Kuwait in 30 minutes.</li>
+                <li>100% genuine and warrantied batteries (German, Korean, Japanese, American).</li>
+                <li>Free alternator and starter testing with every installation.</li>
+                <li>Official written warranty valid at all branches and mobile units.</li>
+            </ul>`,
+            timeAr: "15 - 20 دقيقة",
+            timeEn: "15 - 20 Mins",
+            warrantyAr: "سنة إلى سنتين",
+            warrantyEn: "1 - 2 Years"
+        },
+        diag: {
+            titleAr: "تشخيص وفحص كمبيوتر للسيارات",
+            titleEn: "Computer Diagnostics & Fault Scan",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>`,
+            descAr: `<ul>
+                <li>أجهزة فحص حديثة متوافقة مع كافة أنواع وموديلات السيارات.</li>
+                <li>كشف أعطال المحرك، ناقل الحركة (الجير)، المكابح ABS، والوسائد الهوائية.</li>
+                <li>مسح رموز الأخطاء بعد الإصلاح وإعادة تهيئة الحساسات.</li>
+                <li>تقرير تفصيلي عن الحالة الفنية للسيارة.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>State-of-the-art diagnostic scanners compatible with all vehicle brands.</li>
+                <li>Full scanning of engine, transmission, ABS brakes, and airbag systems.</li>
+                <li>Clearing error codes and resetting sensor modules post-repair.</li>
+                <li>Detailed digital report detailing your vehicle's technical state.</li>
+            </ul>`,
+            timeAr: "20 - 30 دقيقة",
+            timeEn: "20 - 30 Mins",
+            warrantyAr: "فحص دقيق ومضمون",
+            warrantyEn: "Accurate Scan"
+        },
+        emerg: {
+            titleAr: "إنقاذ وتشغيل طوارئ 24/7",
+            titleEn: "Emergency Jump Start & Roadside Help",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
+            descAr: `<ul>
+                <li>استجابة طارئة وفورية في كافة طرق الكويت والبر.</li>
+                <li>اشتراك بطارية آمن وبأجهزة احترافية تحمي حاسوب السيارة.</li>
+                <li>فحص سريع لسبب نفاد البطارية (شحن دينامو، تهريب كهربائي).</li>
+                <li>فريق مستعد للتدخل على مدار الساعة طوال أيام الأسبوع.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Immediate emergency response on all Kuwait highways and desert roads.</li>
+                <li>Safe battery jump-starting using professional tools that protect ECU.</li>
+                <li>On-the-spot check of battery drain causes (alternator test, electrical leak).</li>
+                <li>24/7 rescue crew ready to deploy at any time.</li>
+            </ul>`,
+            timeAr: "10 - 15 دقيقة",
+            timeEn: "10 - 15 Mins",
+            warrantyAr: "حل فوري وسريع",
+            warrantyEn: "Instant Fix"
+        },
+        oil: {
+            titleAr: "تبديل زيت وفلتر متنقل",
+            titleEn: "Mobile Oil & Filter Change",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"/></svg>`,
+            descAr: `<ul>
+                <li>تبديل زيت المحرك عند البيت وبشكل نظيف دون اتساخ الأرضية.</li>
+                <li>زيوت أصلية ومعتمدة من شركات عالمية (كاسترول، شل، توتال).</li>
+                <li>استبدال فلتر الزيت (السيفون) بفلاتر وكالة أصلية.</li>
+                <li>فحص مجاني لمستوى السوائل الأخرى (المبرد، الفرامل، الباور).</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Engine oil change at your driveway cleanly with zero residue.</li>
+                <li>Genuine, certified oils from premium brands (Castrol, Shell, Total).</li>
+                <li>Replacement of oil filter with OEM factory filters.</li>
+                <li>Complimentary fluid level checks (coolant, brake fluid, power steering).</li>
+            </ul>`,
+            timeAr: "20 - 25 دقيقة",
+            timeEn: "20 - 25 Mins",
+            warrantyAr: "زيت أصلي 100%",
+            warrantyEn: "100% Genuine Oil"
+        },
+        wiper: {
+            titleAr: "تبديل مساحات وسفايف متنقل",
+            titleEn: "Mobile Wiper & Brake Pads Service",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.22 17.66a6 6 0 0 0 0-8.49L5.74 17.66h8.48z"/><path d="M12 21A9 9 0 0 0 3 12"/></svg>`,
+            descAr: `<ul>
+                <li>تركيب مساحات زجاج عالية الجودة مقاومة للحرارة والشمس.</li>
+                <li>تبديل سفايف الفرامل (الفرامل الأمامية والخلفية) للسيارة في موقعك.</li>
+                <li>خرط ديسكات الفرامل باستخدام أحدث المعدات المتنقلة إن لزم.</li>
+                <li>ضمان هدوء وكفاءة الكبح بعد التركيب.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Installation of premium, heat-resistant all-weather wiper blades.</li>
+                <li>Mobile brake pads replacement (front & rear) at your doorstep.</li>
+                <li>Brake disc rotor resurfacing using advanced mobile lathes if needed.</li>
+                <li>Guaranteed quiet, smooth, and highly efficient braking performance.</li>
+            </ul>`,
+            timeAr: "30 - 45 دقيقة",
+            timeEn: "30 - 45 Mins",
+            warrantyAr: "ضمان على الأداء",
+            warrantyEn: "Performance Warranty"
+        },
+        tire: {
+            titleAr: "بنشر متنقل وتصليح إطارات",
+            titleEn: "Mobile Tire Repair & Fitting",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>`,
+            descAr: `<ul>
+                <li>تصليح الإطارات التالفة (الرقع) بأحدث الطرق الحرارية الآمنة.</li>
+                <li>استبدال الإطارات القديمة بإطارات جديدة من ماركات عالمية عند البيت.</li>
+                <li>عيار وضبط ضغط هواء الإطارات وتعبئة غاز النيتروجين.</li>
+                <li>موازنة العجلات (الترصيص) لضمان اتزان السيارة على الطريق.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Repair of flat tires (patches) using safe, modern thermal patching techniques.</li>
+                <li>Tire replacement at your driveway with top brand tires.</li>
+                <li>Tire pressure adjustment and nitrogen filling.</li>
+                <li>Wheel balancing (Rassas) to guarantee stability on the highway.</li>
+            </ul>`,
+            timeAr: "15 - 30 دقيقة",
+            timeEn: "15 - 30 Mins",
+            warrantyAr: "كفالة ضد العيوب",
+            warrantyEn: "Defect Warranty"
+        },
+        electric: {
+            titleAr: "ميكانيك وكهرباء سيارات متنقل",
+            titleEn: "Mobile Mechanic & Auto Electrical Work",
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+            descAr: `<ul>
+                <li>إصلاح التمديدات الكهربائية وضفيرة السيارة وكافة الفيوزات.</li>
+                <li>صيانة نظام التبريد والتكييف (تعبئة غاز فريون أمريكي أصلي).</li>
+                <li>إصلاح مشاكل المحرك الخفيفة ومشاكل المروحة والحرارة والرديتر.</li>
+                <li>صيانة السلف والدينامو واستبدالهما بقطع أصلية.</li>
+            </ul>`,
+            descEn: `<ul>
+                <li>Repair of car electrical wiring harnesses, fuses, and modules.</li>
+                <li>AC system maintenance (recharge with genuine US freon gas).</li>
+                <li>Fixing light engine issues, cooling fans, radiator leaks, and heating.</li>
+                <li>Alternator and starter motor repairs and replacements.</li>
+            </ul>`,
+            timeAr: "30 - 60 دقيقة",
+            timeEn: "30 - 60 Mins",
+            warrantyAr: "كفالة على قطع الغيار",
+            warrantyEn: "Warranty on parts"
+        }
+    };
+
+    function openServiceModal(serviceKey) {
+        const item = servicesDetailData[serviceKey];
+        if (!item) return;
+
+        const title = currentLang === 'ar' ? item.titleAr : item.titleEn;
+        const desc = currentLang === 'ar' ? item.descAr : item.descEn;
+        const time = currentLang === 'ar' ? item.timeAr : item.timeEn;
+        const warranty = currentLang === 'ar' ? item.warrantyAr : item.warrantyEn;
+
+        document.getElementById('serviceModalLabel').textContent = title;
+        document.getElementById('modal-service-desc').innerHTML = desc;
+        document.getElementById('modal-service-icon').innerHTML = item.icon;
+        document.getElementById('modal-service-time').textContent = time;
+        document.getElementById('modal-service-warranty').textContent = warranty;
+
+        // Dynamic WhatsApp order link
+        let message = "";
+        if (currentLang === 'ar') {
+            message = `مرحبا كراج النهر الهادي، أود الاستفسار وطلب خدمة: ${title}.`;
+        } else {
+            message = `Hello Al-Nahr Al-Hadi, I would like to request/inquire about: ${title}.`;
+        }
+        document.getElementById('modal-wa-btn').href = `https://wa.me/96555150444?text=${encodeURIComponent(message)}`;
+
+        // Trigger Bootstrap Modal
+        const myModal = new bootstrap.Modal(document.getElementById('serviceModal'));
+        myModal.show();
+    }
+
+
+    // --- Interactive Kuwait Map Coverage Area Logic ---
+    const mapRegionDetails = {
+        capital: {
+            nameAr: "محافظة العاصمة",
+            nameEn: "Capital Governorate",
+            descAr: "تغطية كاملة لمدينة الكويت وكافة المناطق السكنية والتجارية على مدار الساعة.",
+            descEn: "Full 24/7 coverage for Kuwait City and all surrounding residential and commercial blocks.",
+            vans: 5,
+            time: "15 - 20 دقيقة"
+        },
+        hawally: {
+            nameAr: "محافظة حولي",
+            nameEn: "Hawally Governorate",
+            descAr: "تغطية سريعة ومباشرة للسالمية، حولي، الجابرية، بيان وكافة المناطق المجاورة.",
+            descEn: "Express service coverage for Salmiya, Hawally, Jabriya, Bayan, and all adjacent districts.",
+            vans: 6,
+            time: "10 - 15 دقيقة"
+        },
+        farwaniya: {
+            nameAr: "محافظة الفروانية",
+            nameEn: "Farwaniya Governorate",
+            descAr: "صيانة طرق وإطارات سريعة لخيطان، الفروانية، جليب الشيوخ وضواحيها.",
+            descEn: "Fast roadside assistance and tire changes in Khaitan, Farwaniya, Jleeb, and suburbs.",
+            vans: 7,
+            time: "20 - 25 دقيقة"
+        },
+        mubarak: {
+            nameAr: "محافظة مبارك الكبير",
+            nameEn: "Mubarak Al-Kabeer",
+            descAr: "ورش متنقلة متكاملة تخدم صباح السالم، القرين، القصور، العدان والمسايل.",
+            descEn: "Fully-equipped mobile workshops servicing Sabah Al-Salem, Qurain, Adan, and Masayel.",
+            vans: 4,
+            time: "20 - 25 دقيقة"
+        },
+        ahmadi: {
+            nameAr: "محافظة الأحمدي",
+            nameEn: "Ahmadi Governorate",
+            descAr: "خدمات صيانة وبطاريات عند البيت والخطوط السريعة للفحيحيل والمنقف والوفرة.",
+            descEn: "Driveway and highway repair services covering Fahaheel, Mangaf, Sabahiya, and Wafra.",
+            vans: 6,
+            time: "25 - 30 دقيقة"
+        },
+        jahra: {
+            nameAr: "محافظة الجهراء",
+            nameEn: "Jahra Governorate",
+            descAr: "خدمة إنقاذ وصيانة متنقلة لمدينة الجهراء، سعد العبدالله والمناطق البرية والطرق الخارجية.",
+            descEn: "Specialized rescue and maintenance units for Jahra City, Saad Al-Abdullah, and desert roads.",
+            vans: 4,
+            time: "30 - 35 دقيقة"
+        }
+    };
+
+    let selectedRegionKey = "capital";
+
+    function selectMapRegion(regionKey) {
+        selectedRegionKey = regionKey;
+        
+        // Remove active class from all regions
+        document.querySelectorAll('.map-region').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        // Add active class to hovered/selected region
+        const selectedEl = document.querySelector(`.map-region[data-region="${regionKey}"]`);
+        if (selectedEl) {
+            selectedEl.classList.add('active');
+        }
+        
+        updateSelectedMapUI();
+    }
+
+    function updateSelectedMapUI() {
+        const region = mapRegionDetails[selectedRegionKey];
+        if (!region) return;
+
+        const name = currentLang === 'ar' ? region.nameAr : region.nameEn;
+        const desc = currentLang === 'ar' ? region.descAr : region.descEn;
+        const vansVal = currentLang === 'ar' ? `${region.vans} ورش` : `${region.vans} Units`;
+        const timeVal = currentLang === 'ar' ? region.time : `${region.time.replace("دقيقة", "Mins")}`;
+
+        document.getElementById('map-region-name').textContent = name;
+        document.getElementById('map-region-desc').textContent = desc;
+        document.getElementById('map-region-vans').textContent = vansVal;
+        document.getElementById('map-region-time').textContent = timeVal;
+
+        // WhatsApp pre-filled request by region
+        let waText = "";
+        if (currentLang === 'ar') {
+            waText = `مرحبا كراج النهر الهادي، أنا متواجد في: ${name} وأحتاج إلى خدمة صيانة سيارات متنقلة.`;
+        } else {
+            waText = `Hello Al-Nahr Al-Hadi, I am in: ${name} and I need mobile car assistance.`;
+        }
+        document.getElementById('map-region-wa-btn').href = `https://wa.me/96555150444?text=${encodeURIComponent(waText)}`;
+    }
+
+    // Set initial region active state on SVG
+    function initMapInteractive() {
+        selectMapRegion('capital');
+    }
+
+    // Run startup configurations
+    document.addEventListener('DOMContentLoaded', () => {
+        initBrandsSlider();
+        calculateEstimate();
+        initMapInteractive();
+    });
+  </script>
+</body>
+</html>
